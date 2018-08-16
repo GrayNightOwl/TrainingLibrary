@@ -51,7 +51,6 @@ namespace ConsoleApp3
                 Console.WriteLine("Результат распознавания улицы: " + Street);
                 Console.WriteLine("Результат распознавания дома: " + House);
                 Console.WriteLine("Результат распознавания квартиры: " + Flat);
-                Console.WriteLine("Окончание работы");
             }
             public string region
             {
@@ -131,10 +130,16 @@ namespace ConsoleApp3
         public static string CompileAdress(string index,string region,string city, string street, string house, string flat)
         {
             string adress="";
-            adress += index + "," + region + ", г. " + city + ", ул. " + street + ", д. " + house + ", кв. " + flat;
+            adress += index + ", " + region + ", г. " + city + ", ул. " + street + ", д. " + house + ", кв. " + flat;
             return adress;
         }
 
+        public static string CompileAdress(string index, string region, string area, string city, string street, string house, string flat)
+        {
+            string adress = "";
+            adress += index + ", " + region + ", " + area + ", г. " + city + ", ул. " + street + ", д. " + house + ", кв. " + flat;
+            return adress;
+        }
 
 
 
@@ -150,7 +155,6 @@ namespace ConsoleApp3
             Regex regex1 = new Regex(@",\s*(?:у|У)(?:[а-я]|-)*(?:\.|\s)+((?:[А-я]|-|\s)+)\s*,+.*");
             Regex regex2 = new Regex(@",\s*(?:у|У)(?:[а-я]|-)*\s*([А-Я](?:[А-я]|-|\s)+)\s*,+.*"); //парсим по заглавной букве - заменить на \w?
             MatchCollection matches = regex1.Matches(s);
-
 
             if (matches.Count > 0)
             {
@@ -346,6 +350,8 @@ namespace ConsoleApp3
 
             Console.WriteLine("Исходная строка: " + adress);
             adr1.PrintAdress();
+            Console.WriteLine("Адрес, собранный из отдельных частей: " + CompileAdress("614000", Region(adress), City(adress), Street(adress), House(adress), Flat(adress)));
+            Console.WriteLine("Адрес, собранный из отдельных частей: "+ CompileAdress("614000", Region(adress),"Пермский район", City(adress), Street(adress), House(adress), Flat(adress)));
             Console.ReadLine();
         }
     }
