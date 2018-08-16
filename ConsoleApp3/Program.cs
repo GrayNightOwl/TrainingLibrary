@@ -195,21 +195,61 @@ namespace ConsoleApp3
             return region;
         }
 
+        public class Adress
+        {
+            private string Region;
+            private string City;
+            private string Street;
+            private string House;
+            private string Flat;
+            public Adress()
+            {
+                Region = "Пермский край";
+                City = "Пермь";
+            }
+            public Adress(string region, string city, string street, string house, string flat)
+            {
+                if ((region == "") || (region == "Не удалось распознать регион"))
+                {
+                    this.Region = "Пермский край";
+                }
+                else this.Region = region;
 
+                if ((city == "") || (city == "Не удалось распознать город"))
+                {
+                    this.City = "Пермь";
+                }
+                else this.City = city;
+
+                this.Street = street;
+
+                this.House = house;
+
+                this.Flat = flat;
+            }
+            public void PrintAdress()
+            {
+                Console.WriteLine("Результат распознавания региона: " + Region);
+                Console.WriteLine("Результат распознавания города: " + City);
+                Console.WriteLine("Результат распознавания улицы: " + Street);
+                Console.WriteLine("Результат распознавания дома: " + House);
+                Console.WriteLine("Результат распознавания квартиры: " + Flat);
+                Console.WriteLine("Окончание работы");
+            }
+        }
 
 
         static void Main(string[] args)
         {
+
             string adress = "ул Синяя,    г Пермь,кв4 , дом 15";
             //string adress = "Йошкар-Олинская область, г. Пермь., ул. Хрустальная, д. 8А ";
             adress = "," + adress + ",";
+
+            Adress adr1 = new Adress(Region(adress), City(adress), Street(adress), House(adress), Flat(adress));
+
             Console.WriteLine("Исходная строка: " + adress);
-            Console.WriteLine("Результат распознавания региона: " + Region(adress));
-            Console.WriteLine("Результат распознавания города: " + City(adress));
-            Console.WriteLine("Результат распознавания улицы: " + Street(adress));
-            Console.WriteLine("Результат распознавания дома: " + House(adress));
-            Console.WriteLine("Результат распознавания квартиры: " + Flat(adress));
-            Console.WriteLine("Окончание работы");
+            adr1.PrintAdress();
             Console.ReadLine();
         }
     }
